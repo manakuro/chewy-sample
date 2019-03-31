@@ -15,6 +15,6 @@ class UsersController < ApplicationController
     @query = UsersIndex.query(match: { name: params[:name] })
     ids = @query.map(&:id)
 
-    render json: User.where(id: ids), status: :ok
+    render json: User.where(id: ids).page(2).per(2), status: :ok
   end
 end

@@ -29,3 +29,6 @@
 *.iml
 vendor/
 railways.cache
+
+# Ignore application configuration
+/config/application.yml
