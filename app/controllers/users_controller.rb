@@ -12,9 +12,16 @@ class UsersController < ApplicationController
   end
 
   def search
-    @query = UsersIndex.query(match: { name: params[:name] })
-    ids = @query.map(&:id)
+    @user_search = UserSearch.new(search_params)
+    @users = @user_search.search
+    ids = @users.map(&:id)
 
     render json: User.where(id: ids).page(2).per(2), status: :ok
+  end
+
+  private
+
+  def search_params
+    params.permit(:query)
   end
 end
