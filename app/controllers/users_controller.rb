@@ -12,16 +12,15 @@ class UsersController < ApplicationController
   end
 
   def search
-    @user_search = UserSearch.new(search_params)
-    @users = @user_search.search
-    ids = @users.map(&:id)
+    user_search = UserSearch.new(search_params)
+    @users = user_search.search
 
-    render json: User.where(id: ids).page(2).per(2), status: :ok
+    render json: @users, status: :ok
   end
 
   private
 
   def search_params
-    params.permit(:query)
+    params.permit(:query, :page, :per)
   end
 end

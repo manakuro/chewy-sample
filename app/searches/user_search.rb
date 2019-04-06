@@ -3,10 +3,13 @@
 class UserSearch
   include ActiveModel::Model
 
-  attr_accessor :query
+  DEFAULT_PER_PAGE = 10
+  DEFAULT_PAGE = 0
+
+  attr_accessor :query, :page, :per
 
   def search
-    [query_string].compact.reduce(&:merge)
+    [query_string].compact.reduce(&:merge).page(page_num).per(per_page)
   end
 
   def query_string
@@ -15,8 +18,15 @@ class UserSearch
 
   private
 
-
   def index
     UsersIndex
+  end
+
+  def page_num
+    page || DEFAULT_PAGE
+  end
+
+  def per_page
+    per || DEFAULT_PER_PAGE
   end
 end
