@@ -15,6 +15,7 @@ class UserSearch
 
   private
 
+
   def index
     UsersIndex
   end
